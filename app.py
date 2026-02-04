@@ -26,3 +26,8 @@ html_title = """
     <center><h1 class="title-test">Adidas Interactive Sales Dashboard</h1></center>"""
 with col2:
     st.markdown(html_title, unsafe_allow_html=True)
+    
+col3, col4, col5 = st.columns([0.1, 0.45, 0.45])
+with col3:
+    box_date = str(datetime.datetime.now().strftime("%d %B %Y"))
+    st.write(f"Last updated by:  \n {box_date}")
