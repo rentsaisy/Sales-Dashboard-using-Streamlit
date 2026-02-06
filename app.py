@@ -46,3 +46,20 @@ with view1:
 with dwn1:
     st.download_button("Get Data", data = data.to_csv().encode("utf-8"),
                        file_name="RetailerSales.csv", mime="text/csv")
+    
+df["Month_Year"] = df["InvoiceDate"].dt.strftime("%b'%y")
+result = df.groupby(by = df["Month_Year"])["TotalSales"].sum().reset_index()
+
+with col5:
+    fig1 = px.line(result, x = "Month_Year", y = "TotalSales", title="Total Sales Over Time",
+                   template="gridon")
+    st.plotly_chart(fig1, use_container_width=True)
+    
+with view2:
+    expander = st.expander("Monthly Sales")
+    data = result
+    expander.write(data)
+with dwn2:
+    st.download_button("Get Data", data = result.to_csv().encode("utf-8"),
+                       file_name="Monthly Sales.csv", mime="text/csv")
+    
