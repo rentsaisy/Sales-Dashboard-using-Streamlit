@@ -37,3 +37,12 @@ with col4:
                  title = "Total Sales by Retailer", hover_data=["TotalSales"],
                  template="gridon", height=500)
     st.plotly_chart(fig, use_container_width=True)
+    
+_, view1, dwn1, view2, dwn2 = st.columns([0.15,0.20,0.20,0.20,0.20])
+with view1:
+    expander = st.expander("Retailer wise Sales")
+    data = df[["Retailer", "TotalSales"]].groupby(by="Retailer")["TotalSales"].sum()
+    expander.write(data)
+with dwn1:
+    st.download_button("Get Data", data = data.to_csv().encode("utf-8"),
+                       file_name="RetailerSales.csv", mime="text/csv")
