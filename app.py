@@ -65,3 +65,7 @@ with dwn2:
 
 st.divider()
 result1 = df.groupby(by = "State")[["TotalSales", "UnitSold"]].sum().reset_index()
+
+# add the units sold as a line chart on a secondary y-axis
+fig3 = go.Figure()
+fig3.add_trace(go.Bar(x = result1["State"], y = result1["TotalSales"], name = "Total Sales"))
