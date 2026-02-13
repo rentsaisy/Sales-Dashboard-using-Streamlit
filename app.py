@@ -71,3 +71,14 @@ fig3 = go.Figure()
 fig3.add_trace(go.Bar(x = result1["State"], y = result1["TotalSales"], name = "Total Sales"))
 fig3.add_trace(go.Scatter(x = result1["State"], y = result1["UnitSold"], mode = "lines", 
                           name = "Units Sold", yaxis="y2"))
+fig3.update_layout(
+    title = "Total Sales and Units Sold by State",
+    xaxis = dict(title="State"),
+    yaxis = dict(title="Total Sales", showgrid = False),
+    yaxis2 = dict(title="Units Sold", overlaying = "y", side = "right"),
+    template = "gridon",
+    legend = dict(x=1,y=1.1)
+)
+_, col6 = st.columns([0.1,1])
+with col6:
+    st.plotly_chart(fig3, use_container_width=True)
