@@ -82,3 +82,12 @@ fig3.update_layout(
 _, col6 = st.columns([0.1,1])
 with col6:
     st.plotly_chart(fig3, use_container_width=True)
+    
+_, view3, dwn3 = st.columns([0.5, 0.45, 0.45])
+with view3:
+    expander = st.expander("View Data for Sales by Units Sold")
+    expander.write(result1)
+with dwn3:
+    st.download_button("Get Data", data = result1.to_csv().encode("utf-8"),
+                       file_name = "Sales_by_UnitsSold.csv", mime="text/csv")
+st.divider()
