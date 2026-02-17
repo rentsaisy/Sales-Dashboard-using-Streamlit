@@ -94,8 +94,29 @@ st.divider()
 
 _, col7 = st.columns([0.1, 1])
 treemap = df[["Region", "City", "TotalSales"]].groupby(by = ["Region", "City"])["TotalSales"].sum().reset_index()
+def format_sales(value):
+    if value >= 0:
+        return '{:.2f} Lakh'.format(value / 1_000_00)
+    
+treemap["TotalSales (Formatted)"] = treemap["TotalSales"].apply(format_sales)
 
 fig4 = px.treemap(treemap, path = ["Region", "City"], values = "TotalSales",
-                  hover_name = "Total Sales",
-                  hover_data = ["TotalSales"],
+                  hover_name = "TotalSales (Formatted)",
+                  hover_data = ["TotalSales (Formatted)"],
                   color = "City", height = 700, width = 600)
+fig4.update_traces(textinfo="label+value")
+
+with col7:
+    st.subheader(":point_right: Total Sales by Region and City in Treemap")
+    st.plotly_chart(fig4, use_container_width=True)
+    
+_, view4, dwn4 = st.columns([0.5, 0.45, 0.45])
+with view4:
+    result2 = df[["Region", "City", "TotalSales"]].groupby(by = ["Region", "City"])["TotalSales"].sum()
+    expander = st.expander("View data for Total Sales by Region and City")
+    expander.write(result2)
+
+with dwn4:
+    st.download_button("Get Data", data = result2.to_csv().encode("utf-8"),
+                        file_name="Sales_by_Region", mime="text.csv")
+    
