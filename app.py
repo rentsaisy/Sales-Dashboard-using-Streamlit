@@ -120,3 +120,11 @@ with dwn4:
     st.download_button("Get Data", data = result2.to_csv().encode("utf-8"),
                         file_name="Sales_by_Region", mime="text.csv")
     
+_,view5, dwn5 = st.columns([0.5, 0.45, 0.45])
+with view5:
+    expander = st.expander("View Sales Raw Data")
+    expander.write(df)
+with dwn5:
+    st.download_button("Get Raw Data", data = df.to_csv().encode("utf-8"),
+                       file_name = "SalesRawData.csv", mime="text/csv")
+st.divider()    
